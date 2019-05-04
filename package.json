@@ -1,0 +1,22 @@
+{
+  "name": "reflo",
+  "version": "1.0.0",
+  "description": "reflo backend",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "",
+  "license": "",
+  "bugs": {
+    "url": ""
+  },
+  "homepage": "",
+  "dependencies": {
+    "authorizenet": "^1.0.7"
+  }
+}
