@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<title>Hackathon</title>
+	<meta name="viewport" content="width=device-width" />
+	<script src="/web/dom.js"></script>
+	<link rel="stylesheet" href="/web/ui.css">
+	<script src="/web/ui.js"></script>
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<style>
+body {
+	margin: 0;
+	padding: 0;
+	font-family: Helvetica;
+	font-size: 12pt;
+	background: rgb(242,242,242);
+}
+.screen {
+	opacity: 0;
+	transition: opacity 1.2s;
+	display: none;
+	padding: 20px;
+	max-width: 600px;
+	margin-left: auto;
+	margin-right: auto;
+}
+.center {
+	text-align: center;
+}
+p {
+	line-height: 1.4em;
+}
+a {
+	color: rgb(25,125,251);
+	text-decoration: none;
+}
+icon {
+	width: 20px;
+	position: relative;
+	top: 2px;
+}
+button {
+	background: rgb(25,125,251);
+	outline: none;
+	border: 0;
+	padding: 15px;
+	border-radius: 5px;
+	color: white;
+	font-family: Helvetica;
+	font-size: 12pt;
+	cursor: pointer;
+}
+button.main {
+	width: 100%;
+}
+button.sub {
+	background: rgb(228,228,228);
+	color: black;
+	border-radius: 50px;
+	padding: 12px 24px 12px 24px;
+}
+status {
+	display: block;
+	text-align: center;
+}
+status > step {
+	display: inline-block;
+	width: 60px;
+	height: 3px;
+	background: rgb(195,195,195);
+	margin: 0 3px 0 3px;
+}
+status > step.main {
+	background: black;
+}
+div.label {
+	padding: 10px 0 10px 5px;
+}
+input[type="text"] {
+	border: none;
+	outline: none;
+	font-family: Helvetica;
+	font-size: 12pt;
+	padding: 15px 10px 15px 10px;
+	background: white;
+	border-radius: 5px;
+	border-sizing: box;
+	width: 90%;
+	box-sizing: content-box;
+}
+select {
+	border: none;
+	outline: none;
+	font-family: Helvetica;
+	font-size: 12pt;
+	padding: 15px 10px 15px 10px;
+	background: white;
+	border-radius: 5px;
+	border-sizing: box;
+	width: 90%;
+	box-sizing: content-box;
+	-webkit-appearance: none;
+}
+/*
+fake select placeholder
+-make select required: <select name="asdf" required>
+-make first option like: <option value="" disabled selected>Placeholder</option>
+*/
+select:invalid {
+	color: #aaa;
+}
+::placeholder {
+	color: #aaa; /*to match fake select placeholder*/
+}
+div.button {
+	background: rgb(25,125,251);
+	color: white;
+	font-family: Helvetica;
+	font-size: 12pt;
+	cursor: pointer;
+	padding-top: 20px;
+	height: 60px;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	text-align: center;
+}
+div.button[data-disabled="true"] {
+	background: #aaa;
+	pointer-events: none;
+}
+hr {
+	height: 0px;
+	border: none;
+	border-bottom: 1px solid rgb(187,186,191);
+	outline: none;
+}
+	</style>
+</head>
+<body>
+	<style>
+</style>
+<welcome class="screen">
+	<div style="height:100px"></div>
+	<h1>Prepare your business through natural disasters</h1>
+	<div style="height:40px"></div>
+	<p>
+		40 percent of small
+		businesses never reopen their
+		doors following a disaster
+		but you can.
+	</p>
+	<div style="height:100px"></div>
+	<div style="text-align:center;">
+		<button class="main" onclick="welcome.next()">Get Started</button>
+	</div>
+</welcome>
+<script>
+var welcome = {};
+welcome.next = function(){
+	show_screen('owner_info');
+};
+
+</script>
+	<style>
+</style>
+<owner_info class="screen">
+	<div style="height:30px;"></div>
+	<status>
+		<step class="main"></step>
+		<step></step>
+		<step></step>
+	</status>
+	<div style="height:20px;"></div>
+	<h3 class="center">About you</h3>
+	<h2 class="center">Welcome!</h2>
+	<div style="height:30px;"></div>
+	<form onsubmit="return false;">
+		<div class="label">Name</div>
+		<input type="text" name="name" placeholder="Please enter your name">
+		<div style="height:20px;"></div>
+		
+		<div class="label">Email</div>
+		<input type="text" name="email" placeholder="Please enter your email">
+		<div style="height:20px;"></div>
+	</form>
+	<div class="button" onclick="owner_info.next()">
+		Next
+	</div>
+	
+</owner_info>
+<script>
+var owner_info = {};
+owner_info.next = function(){
+	show_screen('business_info');
+};
+
+</script>
+	<style>
+</style>
+<business_info class="screen">
+	<div style="height:30px;"></div>
+	<status>
+		<step></step>
+		<step class="main"></step>
+		<step></step>
+	</status>
+	<div style="height:20px;"></div>
+	<h3 class="center">About your business</h3>
+	<h2 class="center">What is your business name?</h2>
+	<div style="height:30px;"></div>
+	<form onsubmit="return false;">
+		<div class="label">Business name</div>
+		<input type="text" name="name" placeholder="Please enter your name">
+		<div style="height:20px;"></div>
+		
+		<div class="label">Industry</div>
+		<select name="industry" required>
+			<option value="" disabled selected>Please choose one</option>
+			<option value="food_and_bev">Food &amp; Beverage</option>
+			<option value="hacking">Hacking</option>
+			<option value="other">Other</option>
+		</select>
+		<div style="height:20px;"></div>
+	</form>
+	<div class="button" onclick="business_info.next()">
+		Next
+	</div>
+	
+</business_info>
+<script>
+var business_info = {};
+business_info.next = function(){
+	show_screen('business_loc');
+};
+
+</script>
+	<style>
+business_loc div.main {
+	margin: 0 20px 0 20px;
+	border-radius: 5px;
+	background: white;
+	padding: 20px;
+	text-align: center;
+}
+</style>
+<business_loc class="screen">
+	<div style="height:30px;"></div>
+	<status>
+		<step></step>
+		<step></step>
+		<step class="main"></step>
+	</status>
+	<div style="height:20px;"></div>
+	<h3 class="center">About your business</h3>
+	<h2 class="center">Where is your business located?</h2>
+	<div style="height:30px;"></div>
+	<div class="main">
+		<div style="height:10px;"></div>
+		<p>
+			Fill out your location automatically by enabling location services.
+		</p>
+		<div style="height:40px;"></div>
+		<button class="main" onclick="business_loc.locate()">
+			Enable location services
+		</button>
+		<p>
+			<a href="#" onclick="business_loc.no_thanks()">No thanks</a>
+		</p>
+	</div>
+	
+	<form onsubmit="return false;" style="display:none;">
+		<div class="label">Zip code</div>
+		<input type="text" name="name" placeholder="Please enter your 5-digit zip code">
+		<div style="height:20px;"></div>
+	</form>
+	
+	<div class="button" onclick="business_loc.next()" data-disabled="true">
+		Next
+	</div>
+	
+</business_loc>
+<script>
+var business_loc = {};
+
+business_loc.locate = function(){
+	navigator.geolocation.getCurrentPosition(function(pos){
+		/*pos.coords is like:
+		var coords = {
+			latitude: 38.8525,
+			longitude: -77.304167
+		};
+		*/
+		//todo
+		business_loc.next();
+		
+	},function(err){
+		business_loc.no_thanks();
+	});
+};
+
+business_loc.no_thanks = function(){
+	dom.business_loc['div.main'].style.display = 'none';
+	dom.business_loc.form.style.display = 'block';
+	
+	dom.business_loc['div.button'].set('data-disabled',false);
+};
+
+business_loc.next = function(){
+	show_screen('home');
+};
+
+</script>
+	<style>
+home.screen {
+	background: rgb(240,240,240);
+	padding: 0;
+}
+home div.main {
+	background: rgb(246,246,246);
+	box-shadow: 0 0 3px #555;
+	padding: 20px;
+	margin-bottom: 10px;
+}
+home div.greeting {
+	color: #aaa;
+}
+home div.sub {
+	background: white;
+	box-shadow: 0 2px 2px #ccc;
+	padding: 20px;
+	margin-bottom: 10px;
+}
+home div.title {
+	font-size: 0.9em;
+	color: #777;
+	text-transform: uppercase;
+}
+</style>
+<script>
+var home = {};
+
+home.get_greeting = function(){
+	var h = (new Date()).getHours();
+	if(h<12) return 'morning';
+	if(h<17) return 'afternoon';
+	return 'evening';
+};
+</script>
+<home class="screen">
+	<div class="main">
+		<div style="height:30px;"></div>
+		<div class="greeting">
+			Good
+			<script>document.write(home.get_greeting())</script>
+			Larry
+		</div>
+		<h1>
+			Slurrp Noodle Bar
+		</h1>
+		<hr>
+		<div style="height:15px;"></div>
+		<button class="main">Reset Profile</button>
+		<div style="height:10px;"></div>
+	</div>
+	<div class="sub" style="cursor:pointer;" onclick="home.risks()">
+		<div class="title">
+			Risk assessment
+		</div>
+		<h1>Find out what your risks are</h1>
+	</div>
+	<div class="sub">
+		<div class="title">
+			Business Preparedness Test
+		</div>
+		<p>
+			During a disaster, are you confident that your business can protect
+			the lives of everyone at your facility?
+		</p>
+		<button class="sub">Yes</button>
+		<button class="sub">No</button>
+		<button class="sub">Not sure</button>
+	</div>
+	
+	
+</home>
+<script>
+home.risks = function(){
+	show_screen('risk');
+};
+
+</script>
+	<style>
+risk.screen {
+	background: rgb(242,242,242,);
+	padding: 0;
+}
+risk div.main {
+	padding: 20px;
+}
+risk div.map {
+	height: 200px;
+}
+risk div.sub {
+	background: white;
+	padding: 20px;
+}
+div.risk {
+	display: flex;
+	flex-direction: row;
+	font-weight: bold;
+	padding: 20px 0 20px 0;
+	cursor: pointer;
+}
+div.risk > div {
+	flex: 1 1 auto;
+}
+div.risk > div level {
+	display: block;
+	padding-bottom: 5px;
+}
+</style>
+<risk class="screen">
+	<div class="main">
+		<a href="#" onclick="risk.back()">
+			<icon>arrow_back_ios</icon>
+			Home
+		</a>
+		<h1>Risk Assessment</h1>
+	</div>
+	<div class="map"></div>
+	<div class="sub">
+		<p>
+			Based on the location of your business and FEMA's historic data,
+			here is your risk breakdown.
+		</p>
+		<div class="risk">
+			<div>
+				Hurricanes
+			</div>
+			<div>
+				<level>High risk</level>
+				<span>Tap to open report</span>
+			</div>
+		</div>
+		<hr>
+		<div class="risk">
+			<div>
+				Hurricanes
+			</div>
+			<div>
+				<level>High risk</level>
+				<span>Tap to open report</span>
+			</div>
+		</div>
+		<hr>
+		<div class="risk">
+			<div>
+				Hurricanes
+			</div>
+			<div>
+				<level>High risk</level>
+				<span>Tap to open report</span>
+			</div>
+		</div>
+		<hr>
+		<div class="risk">
+			<div>
+				Hurricanes
+			</div>
+			<div>
+				<level>High risk</level>
+				<span>Tap to open report</span>
+			</div>
+		</div>
+	</div>
+</risk>
+<script>
+var risk = {};
+
+risk.back = function(){
+	show_screen('home');
+};
+
+function initMap(){
+	var pos = {lat: -25.344, lng: 131.036};
+	var el = dom.risk['div.map']._target;
+	var opts = {
+		zoom: 4,
+		center: pos,
+		disableDefaultUI: true
+	};
+	var map = new google.maps.Map(el, opts);
+	var marker = new google.maps.Marker({position: pos, map: map});
+}
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqlB_MD6aOFO_B16HrYbgmm-uyCV9cxww&callback=initMap"></script>
+
+	
+
+	<script>
+function show_screen(name){
+	dom.all('.screen',function(screen){
+		screen.style.display = 'none';
+		screen.style.opacity = 0;
+	});
+	dom[name].style.display = 'block';
+	
+	//necessary to do in timeout for some reason
+	setTimeout(function(){
+		dom[name].style.opacity = 1;
+	});
+	window.scroll(0,0);
+}
+show_screen('welcome');
+// show_screen('owner_info');
+// show_screen('business_info');
+// show_screen('business_loc');
+// show_screen('home');
+// show_screen('risk');
+	</script>
+</body>
+</html>
+
